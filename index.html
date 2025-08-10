@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Rep Max (1RM) Calculator — Fast & Accurate</title>
+  <meta name="description" content="Free 1RM calculator with Epley, Brzycki, and Lombardi formulas. Get training percentages instantly.">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="One Rep Max (1RM) Calculator — Fast & Accurate">
+  <meta property="og:description" content="Free 1RM calculator with Epley, Brzycki, and Lombardi formulas. Get training percentages instantly.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://1rmcalc.app">
+  <meta property="og:image" content="/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="One Rep Max (1RM) Calculator — Fast & Accurate">
+  <meta name="twitter:description" content="Free 1RM calculator with Epley, Brzycki, and Lombardi formulas. Get training percentages instantly.">
+  <meta name="twitter:image" content="/og.png">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/icons/icon-192x192.png">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.webmanifest">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="/src/style.css">
+  
+  <!-- JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "One Rep Max Calculator",
+    "applicationCategory": "FitnessApplication",
+    "operatingSystem": "Web",
+    "url": "https://1rmcalc.app",
+    "description": "Fast, accurate One Rep Max calculator with training percentages and plate math",
+    "author": {
+      "@type": "Organization",
+      "name": "One Rep Max"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+</head>
+<body class="min-h-screen bg-slate-950 text-gray-200 antialiased font-inter">
+  <!-- Header -->
+  <header class="border-b border-slate-800/80">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6 py-4 flex items-center justify-between">
+      <a class="flex items-center gap-2" href="/">
+        <div class="h-8 w-8 rounded-xl bg-blue-500/15 ring-1 ring-blue-400/30 grid place-items-center">
+          <span class="text-blue-300 font-semibold font-mono">1RM</span>
+        </div>
+        <span class="font-semibold">One Rep Max</span>
+      </a>
+      <nav class="text-sm text-gray-400">
+        <a href="#faq" class="hover:text-gray-200 transition">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="mx-auto max-w-2xl px-4 sm:px-6 py-10 space-y-8">
+    <!-- Hero Section -->
+    <section class="text-center space-y-4">
+      <h1 class="text-3xl sm:text-4xl font-semibold leading-tight">Calculate Your One-Rep Max</h1>
+      <p class="text-gray-400">Fast, accurate estimates using popular formulas (Epley, Brzycki, Lombardi).</p>
+    </section>
+
+    <!-- Error Alert -->
+    <div id="error-alert" class="hidden rounded-2xl bg-red-900/20 border border-red-800 p-4 text-red-300 text-center">
+      <!-- Error message will be inserted here -->
+    </div>
+
+    <!-- Calculator Card -->
+    <section class="rounded-2xl bg-slate-900/70 border border-slate-800 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] backdrop-blur p-6 space-y-5">
+      <form class="space-y-4" id="calc-form">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <label class="col-span-1 sm:col-span-2">
+            <span class="block text-sm text-gray-400 mb-2">Weight Lifted</span>
+            <div class="flex rounded-xl border border-slate-800 bg-slate-950/60 focus-within:ring-2 focus-within:ring-blue-300">
+              <input type="number" inputmode="decimal" step="0.5" placeholder="e.g., 100"
+                     class="w-full bg-transparent px-4 py-3 outline-none" id="weight" required>
+              <select id="unit" class="bg-transparent px-3 border-l border-slate-800">
+                <option value="kg">kg</option>
+                <option value="lb">lb</option>
+              </select>
+            </div>
+          </label>
+          <label>
+            <span class="block text-sm text-gray-400 mb-2">Reps</span>
+            <input type="number" inputmode="numeric" min="1" max="20" placeholder="e.g., 5"
+                   class="w-full rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 focus:ring-2 focus:ring-blue-300 outline-none" id="reps" required>
+          </label>
+        </div>
+
+        <button type="submit" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-blue-500 hover:bg-blue-400 text-slate-950 font-semibold transition">
+          Calculate 1RM
+        </button>
+      </form>
+    </section>
+
+    <!-- Result Card -->
+    <section id="result" class="hidden rounded-2xl bg-slate-900/70 border border-slate-800 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] backdrop-blur p-6 space-y-4">
+      <div class="text-center space-y-4">
+        <h2 class="text-xl font-semibold">Your Estimated 1RM</h2>
+        <div class="text-5xl font-semibold text-emerald-300" id="best-1rm">—</div>
+        <p class="text-sm text-gray-400">Calculated using Epley, Brzycki, and Lombardi formulas</p>
+      </div>
+      
+      <!-- Share Button -->
+      <div class="pt-2 text-center">
+                        <button id="share-button" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-gray-300 font-medium transition">
+                  Copy results
+                </button>
+      </div>
+    </section>
+
+    <!-- Percent Table -->
+    <section id="percentages" class="hidden rounded-2xl bg-slate-900/70 border border-slate-800 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] backdrop-blur p-6 space-y-4">
+      <h3 class="font-semibold">Training Percentages</h3>
+      <div id="percentages-grid" class="grid sm:grid-cols-2 gap-3 text-sm">
+        <!-- Percentage rows will be generated by JavaScript -->
+      </div>
+      <p class="text-xs text-gray-500">Tip: most sets fall between 65–85% of 1RM depending on your goal.</p>
+    </section>
+
+
+
+    <!-- Warm-up Generator -->
+    <section id="warmup" class="rounded-2xl bg-slate-900/70 border border-slate-800 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] backdrop-blur p-6 space-y-4">
+      <h3 class="font-semibold">Warm-up Sets</h3>
+      <p class="text-sm text-gray-400">Progressive warm-up plan. Shows example plan initially, then updates based on your calculated 1RM.</p>
+      
+      <div class="space-y-3">
+        <label>
+          <span class="block text-sm text-gray-400 mb-2">Working Weight</span>
+          <input type="number" inputmode="decimal" step="0.5" placeholder="Enter your working weight"
+                 class="w-full rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3 focus:ring-2 focus:ring-blue-300 outline-none" id="warmup-input">
+        </label>
+        
+        <div id="warmup-result" class="space-y-3">
+          <!-- Warm-up sets will be generated here -->
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+    <!-- FAQ -->
+    <section id="faq" class="rounded-2xl bg-slate-900/70 border border-slate-800 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] backdrop-blur p-6 space-y-4">
+      <h3 class="font-semibold">FAQ</h3>
+      <details class="group rounded-lg border border-slate-800 p-4">
+        <summary class="cursor-pointer font-medium text-gray-200 group-open:text-emerald-300">How accurate is a 1RM estimate?</summary>
+        <p class="mt-2 text-gray-400">It's an estimate. Accuracy drops at high reps. Use lower-rep sets (≤10) for better results.</p>
+      </details>
+      <details class="group rounded-lg border border-slate-800 p-4">
+        <summary class="cursor-pointer font-medium text-gray-200 group-open:text-emerald-300">Which formula should I use?</summary>
+        <p class="mt-2 text-gray-400">Epley and Brzycki are common; Lombardi scales differently for high reps. We show all three.</p>
+      </details>
+
+      <details class="group rounded-lg border border-slate-800 p-4">
+        <summary class="cursor-pointer font-medium text-gray-200 group-open:text-emerald-300">What's a good warm-up progression?</summary>
+        <p class="mt-2 text-gray-400">Start with empty bar, then progress through 40%, 60%, 75%, and 85% of your working weight with decreasing reps.</p>
+      </details>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-6 text-center text-sm text-gray-500">
+    <div class="mx-auto max-w-2xl px-4 sm:px-6">
+      <p>© 2024 One Rep Max</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

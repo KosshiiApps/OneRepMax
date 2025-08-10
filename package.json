@@ -1,0 +1,39 @@
+{
+  "name": "onerepmax-calculator",
+  "version": "1.0.0",
+  "description": "Fast, accurate One Rep Max calculator with training percentages and plate math",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && git add . && git commit -m 'Build for deployment' && git push",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "ci": "npm run build && npm run test && npm run e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.10.0",
+    "@vitejs/plugin-legacy": "^5.0.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.3.6",
+    "typescript": "^5.3.2",
+    "vite": "^5.0.0",
+    "vitest": "^1.0.0"
+  },
+  "keywords": [
+    "1rm",
+    "one-rep-max",
+    "strength-training",
+    "calculator",
+    "fitness"
+  ],
+  "author": "One Rep Max",
+  "license": "MIT",
+  "homepage": "https://1rmcalc.app"
+}
