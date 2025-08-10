@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
 export default defineConfig({
-  base: '/1rmcalc-app/', // Update this to match your repository name
+  base: '/OneRepMax/', // Update this to match your repository name
   build: {
     target: 'es2015',
     rollupOptions: {
